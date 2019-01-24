@@ -43,6 +43,7 @@
     <Compile Include="Managers\OwnerManager.cs" />
     <Compile Include="Managers\ProductManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rand\RandProduct.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ProductStore.Entities\ProductStore.Entities.csproj">

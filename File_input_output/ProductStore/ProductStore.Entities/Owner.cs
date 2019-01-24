@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace ProductStore.Entities
 {
-    class Owner
+    public class Owner
     {
+        String Name;
+        Guid OwnerId;
     }
 }

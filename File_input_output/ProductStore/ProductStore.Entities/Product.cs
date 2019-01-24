@@ -19,7 +19,7 @@ namespace ProductStore.Entities
 
         public override string ToString()
         {
-            return $"{this.ProductId};{this.Name};{this.Type.ToString()};{this.CreateDate};{this.EndDate}";
+            return $"{this.ProductId};{this.Name};{this.Type.ToString()};{this.CreateDate.ToString("dd.MM.yyyy")};{this.EndDate.ToString("dd.MM.yyyy")}";
         }
     }
 }

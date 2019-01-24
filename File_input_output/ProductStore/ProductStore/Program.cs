@@ -1,10 +1,12 @@
 ﻿using ProductStore.Common;
 using ProductStore.Core;
+using ProductStore.Core.Rand;
 using ProductStore.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ProductStore
@@ -13,26 +15,57 @@ namespace ProductStore
     {
         static void Main(string[] args)
         {
-            var productStoreFilePath = @"D:\GR1724\Projects\ProductStore\DATA\Products.txt";
-            var productManager = new ProductManager(productStoreFilePath);
-            var product = new Product
-            {
-                ProductId = Guid.NewGuid(),
-                Name = "Lapte",
-                Type = Entities.Enums.ProductType.Drink,
-                CreateDate = DateTime.Now,
-                EndDate = DateTime.Now.AddDays(Constants.ProductDays.ValidPeriod)
-            };
+            String productStoreFilePath = @"D:\new_C_charp\File_input_output\ProductStore\DATA\Products.txt";
+            //ProductManager productManager = new ProductManager(productStoreFilePath);
 
-            try
+            
+            RandProduct rand = new RandProduct();
+            Product product = new Product();
+
+            for (int i = 0; i < 50; i++)
             {
-                productManager.Add(product);
+
+                ProductManager productManager = new ProductManager(productStoreFilePath);
+
+                rand.Rand(product);
+
+                try
+                {
+                    productManager.Add(product);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                    Console.ReadKey();
+                }
+                Thread.Sleep(400);
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-                Console.ReadKey();
-            }
-         }
+                      
+                
+
+            
+
+
+
+
+            //Product product = new Product
+            //{
+            //    ProductId = Guid.NewGuid(),
+            //    Name = "Lapte",
+            //    Type = Entities.Enums.ProductType.Drink,
+            //    CreateDate = DateTime.Now,
+            //    EndDate = DateTime.Now.AddDays(Constants.ProductDays.ValidPeriod)
+            //};
+
+            //try
+            //{
+            //    productManager.Add(product);
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine(ex.ToString());
+            //    Console.ReadKey();
+            //}
+        }
     }
 }

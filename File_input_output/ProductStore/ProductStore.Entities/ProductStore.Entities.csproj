@@ -40,7 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Drinks\Drinks.cs" />
     <Compile Include="Enums\ProductType.cs" />
+    <Compile Include="Food\Food.cs" />
     <Compile Include="Owner.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
