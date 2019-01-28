@@ -1,5 +1,5 @@
 ﻿using ProductStore.Core.Rand;
-using ProductStore.Core.SQL;
+//using ProductStore.Core.SQL;
 using ProductStore.Entities;
 using System;
 using System.Collections.Generic;
@@ -19,7 +19,7 @@ namespace ProductStore.Core
         public ProductManager(string filePath)
         {
             this.filePath = filePath;
-            streamWriter = new StreamWriter(this.filePath, true);
+            //streamWriter = new StreamWriter(this.filePath, true);
         }
 
         public Product Add(Product product)
@@ -74,16 +74,51 @@ namespace ProductStore.Core
             streamWriter.Close(); 
         }
 
+
         public Product GetProduct(Guid productId)
         {
-            Product_SQL sql = new Product_SQL();
-            Product prod;
-            for (int i = 0; i < sql.getCount(); i++)
+            Product result = null;
+            string line = string.Empty;
+            StreamReader streamReader = new StreamReader(filePath);
+            while ((line = streamReader.ReadLine()) != null)
             {
-                prod = sql.SQL;
+                if (line.Contains(productId.ToString()))
+                {
 
+                    result = Product.Parse(line);
+                    break;
+
+      
+                }
             }
-            return;
+
+            streamReader.Close();
+            return result;
         }
+
+
+
+
+
+        //public Product GetProduct(Guid productId)
+        //{
+        //    Product_SQL sql = new Product_SQL();
+        //    Product prod;
+
+        //    foreach (var item in sql.SQL)
+        //    {
+        //        if (item.ProductId == productId)
+        //        {
+        //            return item;
+        //        }
+        //    }
+
+        //    for (int i = 0; i < sql.getCount(); i++)
+        //    {
+        //        prod = sql.SQL;
+
+        //    }
+        //    return;
+        //}
     }
 }

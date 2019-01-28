@@ -16,31 +16,37 @@ namespace ProductStore
     {
         static void Main(string[] args)
         {
-            String productStoreFilePath = @"D:\new_C_charp\File_input_output\ProductStore\DATA\Products.txt";
+            String productStoreFilePath = @"D:\vladok\new_C_charp\File_input_output\ProductStore\DATA\Products.txt";
             ProductManager productManager = new ProductManager(productStoreFilePath);
 
-            
-           
-
-            productManager.AddRand(1000);
 
 
 
-
-            ArrayList SQL = new ArrayList();
-
-            for (int i = 0; i < 50; i++)
-            {
-                SQL.Add(new RandProduct());
-            }
+            // productManager.AddRand(1000);
 
 
-            foreach (var item in SQL)
-            {
-                
+            Guid e = Guid.Parse("47361c0b-bfde-436a-8427-f8f5ad03cd06");
 
-            }
-            
+            Product prod = productManager.GetProduct(e);
+
+            Console.WriteLine(prod.ToString());
+            Console.ReadKey();
+
+
+            //ArrayList SQL = new ArrayList();
+
+            //for (int i = 0; i < 50; i++)
+            //{
+            //    SQL.Add(new RandProduct());
+            //}
+
+
+            //foreach (var item in SQL)
+            //{
+
+
+            //}
+
 
 
 

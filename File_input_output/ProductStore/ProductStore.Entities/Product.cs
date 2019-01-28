@@ -21,5 +21,25 @@ namespace ProductStore.Entities
         {
             return $"{this.ProductId};{this.Name};{this.Type.ToString()};{this.CreateDate.ToString("dd.MM.yyyy")};{this.EndDate.ToString("dd.MM.yyyy")}";
         }
+
+        public static Product Parse(string str)
+        {
+
+            if (string.IsNullOrEmpty(str)) return null;
+
+
+            string[] mas = str.Split(new char[] { ';' });
+
+            Product product = new Product()
+            {
+                ProductId = Guid.Parse(mas[0]),
+                Name = mas[1],
+                Type = (ProductType)Enum.Parse(typeof(ProductType), mas[2]),
+                CreateDate = DateTime.Parse(mas[3]),
+                EndDate = DateTime.Parse(mas[4])
+            };
+
+            return product;
+        }
     }
 }
