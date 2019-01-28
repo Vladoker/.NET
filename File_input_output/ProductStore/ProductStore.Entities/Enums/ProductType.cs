@@ -8,7 +8,7 @@ namespace ProductStore.Entities.Enums
 {
     public enum ProductType
     {
-        Food = 1,
-        Drink = 2
+        Food = 0,
+        Drink = 1
     }
 }

@@ -16,7 +16,7 @@ namespace ProductStore.Entities.Food
             return MasFood[index].ToString();
         }
 
-        public int Getsizeof()
+        public int GetCount()
         {
             return MasFood.Count;
         }
@@ -25,6 +25,7 @@ namespace ProductStore.Entities.Food
         {
             MasFood = new ArrayList();
 
+           
             MasFood.Add("Рис");
             MasFood.Add("Хлеб");
             MasFood.Add("Мясо");

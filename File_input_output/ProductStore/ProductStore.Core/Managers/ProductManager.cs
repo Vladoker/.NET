@@ -1,9 +1,12 @@
-﻿using ProductStore.Entities;
+﻿using ProductStore.Core.Rand;
+using ProductStore.Core.SQL;
+using ProductStore.Entities;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ProductStore.Core
@@ -25,6 +28,62 @@ namespace ProductStore.Core
             streamWriter.Close();
 
             return product;
+        }
+
+        public void Add(Product product, int count)
+        {
+
+            for (int i = 0; i < count; i++)
+            {
+                
+                try
+                {
+                    streamWriter.WriteLine(product.ToString());
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                    Console.ReadKey();
+                }
+            }
+
+            streamWriter.Close(); 
+        }
+        public void AddRand(int count)
+        {
+            RandProduct rand = new RandProduct();
+            Product product;
+
+
+            for (int i = 0; i < count; i++)
+            {
+                
+                try
+                {
+                    product = rand.Rand();
+                    streamWriter.WriteLine(product.ToString());
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                    Console.ReadKey();
+                }
+                
+            }
+
+            streamWriter.Close(); 
+        }
+
+        public Product GetProduct(Guid productId)
+        {
+            Product_SQL sql = new Product_SQL();
+            Product prod;
+            for (int i = 0; i < sql.getCount(); i++)
+            {
+                prod = sql.SQL;
+
+            }
+            return;
         }
     }
 }

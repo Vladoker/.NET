@@ -16,7 +16,7 @@ namespace ProductStore.Entities.Drinks
             return MasDrinks[index].ToString();
         }
 
-        public int Getsizeof()
+        public int GetCount()
         {
             return MasDrinks.Count;
         }
