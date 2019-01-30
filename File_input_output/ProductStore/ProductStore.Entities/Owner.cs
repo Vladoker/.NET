@@ -8,7 +8,7 @@ namespace ProductStore.Entities
 {
     public class Owner
     {
-        String Name;
-        Guid OwnerId;
+       public String Name { get; set; }
+       public Guid OwnerId { get; set; }
     }
 }

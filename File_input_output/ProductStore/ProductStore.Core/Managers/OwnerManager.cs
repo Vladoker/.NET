@@ -1,4 +1,5 @@
 ﻿using ProductStore.Entities;
+using ProductStore.Entities.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,8 @@ namespace ProductStore.Core
 {
     public class OwnerManager
     {
-        //public Product GetProduct (Guid ProductId)
-        //{
+      
 
-        //    return ;
-        //}
+        
     }
 }
