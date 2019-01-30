@@ -1,6 +1,7 @@
 ﻿using ProductStore.Common;
 using ProductStore.Core;
 using ProductStore.Core.Rand;
+using ProductStore.Domain;
 using ProductStore.Entities;
 using System;
 using System.Collections;
@@ -25,54 +26,32 @@ namespace ProductStore
             // productManager.AddRand(1000);
 
 
-            Guid e = Guid.Parse("47361c0b-bfde-436a-8427-f8f5ad03cd06");
+            //Guid e = Guid.Parse("47361c0b-bfde-436a-8427-f8f5ad03cd06");
 
-            Product prod = productManager.GetProduct(e);
+            //Product prod = productManager.GetProduct(e);
 
-            Console.WriteLine(prod.ToString());
+            //Console.WriteLine(prod.ToString());
+
+
+
+
+
+            var obj = productManager.GetProducts(new ProductFilter {OwnerName = "Apple" });
+
+
+            Console.WriteLine(obj.Count);
+
+          
+
+
+
             Console.ReadKey();
 
 
-            //ArrayList SQL = new ArrayList();
-
-            //for (int i = 0; i < 50; i++)
-            //{
-            //    SQL.Add(new RandProduct());
-            //}
+         
 
 
-            //foreach (var item in SQL)
-            //{
-
-
-            //}
-
-
-
-
-
-
-
-
-
-            //Product product = new Product
-            //{
-            //    ProductId = Guid.NewGuid(),
-            //    Name = "Lapte",
-            //    Type = Entities.Enums.ProductType.Drink,
-            //    CreateDate = DateTime.Now,
-            //    EndDate = DateTime.Now.AddDays(Constants.ProductDays.ValidPeriod)
-            //};
-
-            //try
-            //{
-            //    productManager.Add(product);
-            //}
-            //catch (Exception ex)
-            //{
-            //    Console.WriteLine(ex.ToString());
-            //    Console.ReadKey();
-            //}
+         
         }
     }
 }

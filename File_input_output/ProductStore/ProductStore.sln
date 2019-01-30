@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductStore", "ProductStore\ProductStore.csproj", "{9EC1B1D4-E4DB-403E-9AA4-17C4184AEE74}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductStore.Persistence", "ProductStore.Persistence\ProductStore.Persistence.csproj", "{AD8781D8-E3DE-4E4A-B8DC-92AC7CB5EF2C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductStore.Common", "ProductStore.Common\ProductStore.Common.csproj", "{55C07EAB-E067-45F8-AA88-AE1C01F75454}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductStore.Domain", "ProductStore.Domain\ProductStore.Domain.csproj", "{8846301E-06DD-4669-A10C-711E1A2B7790}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,8 +41,15 @@ Global
 		{55C07EAB-E067-45F8-AA88-AE1C01F75454}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55C07EAB-E067-45F8-AA88-AE1C01F75454}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55C07EAB-E067-45F8-AA88-AE1C01F75454}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8846301E-06DD-4669-A10C-711E1A2B7790}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8846301E-06DD-4669-A10C-711E1A2B7790}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8846301E-06DD-4669-A10C-711E1A2B7790}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8846301E-06DD-4669-A10C-711E1A2B7790}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C3FEAA9E-ECBD-4333-9C82-A1CD86D476E6}
 	EndGlobalSection
 EndGlobal

@@ -1,4 +1,5 @@
 ﻿using ProductStore.Core.Rand;
+using ProductStore.Domain;
 //using ProductStore.Core.SQL;
 using ProductStore.Entities;
 using System;
@@ -97,30 +98,28 @@ namespace ProductStore.Core
         }
 
 
+        public List<Product> GetProducts(ProductFilter filter)
+        {
+            List<Product> result = new List<Product>();
+            String line = string.Empty;
 
 
+            StreamReader streamReader = new StreamReader(filePath);
+            while ((line = streamReader.ReadLine()) != null)
+            {
+                if (
+                    (!filter.ProductType.HasValue || line.Contains(filter.ProductType?.ToString()))
+                    && 
+                    (string.IsNullOrEmpty(filter.OwnerName) || line.Contains(filter.OwnerName)))
+                {
+                    result.Add(Product.Parse(line));
+                }
 
+            }            
 
-        //public Product GetProducts(ProductType type, )
-        //{
-        //    Product result = null;
-        //    string line = string.Empty;
-        //    StreamReader streamReader = new StreamReader(filePath);
-        //    while ((line = streamReader.ReadLine()) != null)
-        //    {
-        //        if (line.Contains(productId.ToString()))
-        //        {
-
-        //            result = Product.Parse(line);
-        //            break;
-
-
-        //        }
-        //    }
-
-        //    streamReader.Close();
-        //    return result;
-        //}
+            streamReader.Close();
+            return result;
+        }
 
 
 
