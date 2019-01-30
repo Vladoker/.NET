@@ -100,25 +100,31 @@ namespace ProductStore.Core
 
 
 
-        //public Product GetProduct(Guid productId)
-        //{
-        //    Product_SQL sql = new Product_SQL();
-        //    Product prod;
 
-        //    foreach (var item in sql.SQL)
+        //public Product GetProducts(ProductType type, )
+        //{
+        //    Product result = null;
+        //    string line = string.Empty;
+        //    StreamReader streamReader = new StreamReader(filePath);
+        //    while ((line = streamReader.ReadLine()) != null)
         //    {
-        //        if (item.ProductId == productId)
+        //        if (line.Contains(productId.ToString()))
         //        {
-        //            return item;
+
+        //            result = Product.Parse(line);
+        //            break;
+
+
         //        }
         //    }
 
-        //    for (int i = 0; i < sql.getCount(); i++)
-        //    {
-        //        prod = sql.SQL;
-
-        //    }
-        //    return;
+        //    streamReader.Close();
+        //    return result;
         //}
+
+
+
+
+
     }
 }
