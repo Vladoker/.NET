@@ -31,7 +31,7 @@ namespace ProductStore
                 Console.WriteLine(item.ToString());
             }
 
-            //productManager.GenerateTestData(owners);
+            productManager.GenerateTestData(owners);
 
             var products = productManager.GetProducts(
                 new ProductFilter { ProductIsValid = true });
