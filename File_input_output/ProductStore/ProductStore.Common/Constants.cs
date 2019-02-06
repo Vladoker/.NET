@@ -13,7 +13,7 @@ namespace ProductStore.Common
             public const int ValidPeriod = 3;
         }
 
-        public const string ProductStorePath = @"D:\new_C_charp\File_input_output\ProductStore Мой\DATA\Products.txt";
-        public const string OwnerStorePath = @"D:\new_C_charp\File_input_output\ProductStore Мой\DATA\Owners.txt";
+        public const string ProductStorePath = @"D:\vladok\new_C_charp\File_input_output\ProductStore\DATA\Products.txt";
+        public const string OwnerStorePath = @"D:\vladok\new_C_charp\File_input_output\ProductStore\DATA\Owners.txt";
     }
 }

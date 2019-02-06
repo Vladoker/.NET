@@ -36,7 +36,7 @@ namespace ProductStore.Persistence.Repositories
             streamReader = new StreamReader(repositoryFilePath);
             while ((line = streamReader.ReadLine()) != null)
             {
-                if (line.Contains(ownerId.ToString()))
+                if (line.Contains(ownerId.ToString().ToUpper()))
                 {
                     result = Owner.Parse(line);
                     break;
@@ -72,7 +72,7 @@ namespace ProductStore.Persistence.Repositories
 
             foreach (var item in owners)
             {
-                if (item == owner)
+                if (item.OwnerId == owner.OwnerId)
                 {
                     owners.Remove(item);
                     break;
@@ -81,7 +81,7 @@ namespace ProductStore.Persistence.Repositories
 
 
 
-            streamWriter = new StreamWriter(repositoryFilePath, true);
+            streamWriter = new StreamWriter(repositoryFilePath, false);
 
             foreach (var item in owners)
             {
