@@ -46,6 +46,10 @@
     <Compile Include="Rand\RandProduct.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ProductStore.Common\ProductStore.Common.csproj">
+      <Project>{55C07EAB-E067-45F8-AA88-AE1C01F75454}</Project>
+      <Name>ProductStore.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProductStore.Domain\ProductStore.Domain.csproj">
       <Project>{8846301e-06dd-4669-a10c-711e1a2b7790}</Project>
       <Name>ProductStore.Domain</Name>
@@ -53,6 +57,10 @@
     <ProjectReference Include="..\ProductStore.Entities\ProductStore.Entities.csproj">
       <Project>{E61BF83E-3A73-48C5-9926-EBF18F72C2C2}</Project>
       <Name>ProductStore.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProductStore.Persistence\ProductStore.Persistence.csproj">
+      <Project>{AD8781D8-E3DE-4E4A-B8DC-92AC7CB5EF2C}</Project>
+      <Name>ProductStore.Persistence</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

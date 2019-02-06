@@ -14,12 +14,13 @@ namespace ProductStore.Entities
         public ProductType Type { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime EndDate { get; set; }
+        public Owner Owner { get; set; }
 
-        //public Owner Owner { get; set; }
+        public bool IsValid => EndDate >= DateTime.Now.Date;
 
         public override string ToString()
         {
-            return $"{this.ProductId};{this.Name};{this.Type.ToString()};{this.CreateDate.ToString("dd.MM.yyyy")};{this.EndDate.ToString("dd.MM.yyyy")}";
+            return $"{this.ProductId};{this.Name};{this.Type.ToString()};{this.CreateDate.ToString("dd.MM.yyyy")};{this.EndDate.ToString("dd.MM.yyyy")};{Owner.OwnerId.ToString()}";
         }
 
         public static Product Parse(string str)
@@ -36,7 +37,8 @@ namespace ProductStore.Entities
                 Name = mas[1],
                 Type = (ProductType)Enum.Parse(typeof(ProductType), mas[2]),
                 CreateDate = DateTime.Parse(mas[3]),
-                EndDate = DateTime.Parse(mas[4])
+                EndDate = DateTime.Parse(mas[4]),
+                Owner = new Owner {OwnerId = Guid.NewGuid()}
             };
 
             return product;

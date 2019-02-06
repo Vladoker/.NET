@@ -15,6 +15,8 @@ namespace ProductStore.Domain
 
         public string OwnerName { get; set; }
 
+        public bool? ProductIsValid { get; set; }
+
 
     }
 }

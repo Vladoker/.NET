@@ -1,7 +1,8 @@
-﻿using ProductStore.Core.Rand;
+﻿using ProductStore.Common;
+using ProductStore.Core.Rand;
 using ProductStore.Domain;
-//using ProductStore.Core.SQL;
 using ProductStore.Entities;
+using ProductStore.Persistence;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,112 +15,88 @@ namespace ProductStore.Core
 {
     public class ProductManager
     {
-        private string filePath;
-        private StreamWriter streamWriter;
+        private ProductRepository productRepository;
 
-        public ProductManager(string filePath)
+        public ProductManager(ProductRepository productRepository) //конструктор
         {
-            this.filePath = filePath;
-            //streamWriter = new StreamWriter(this.filePath, true);
+            this.productRepository = productRepository;
         }
 
-        public Product Add(Product product)
+        public Product AddProduct(Product product) // Метод который записывает Продукт в txt
         {
-            streamWriter.WriteLine(product.ToString());
-            streamWriter.Close();
-
-            return product;
+            return productRepository.addProduct(product);
         }
 
-        public void Add(Product product, int count)
+        public Product GetProdcut(Guid productId) // возрощает продукт по указаному id 
         {
-
-            for (int i = 0; i < count; i++)
-            {
-                
-                try
-                {
-                    streamWriter.WriteLine(product.ToString());
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.ToString());
-                    Console.ReadKey();
-                }
-            }
-
-            streamWriter.Close(); 
+            return productRepository.GetProduct(productId);
         }
-        public void AddRand(int count)
-        {
-            RandProduct rand = new RandProduct();
-            Product product;
-
-
-            for (int i = 0; i < count; i++)
-            {
-                
-                try
-                {
-                    product = rand.Rand();
-                    streamWriter.WriteLine(product.ToString());
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.ToString());
-                    Console.ReadKey();
-                }
-                
-            }
-
-            streamWriter.Close(); 
-        }
-
-
-        public Product GetProduct(Guid productId)
-        {
-            Product result = null;
-            string line = string.Empty;
-            StreamReader streamReader = new StreamReader(filePath);
-            while ((line = streamReader.ReadLine()) != null)
-            {
-                if (line.Contains(productId.ToString()))
-                {
-
-                    result = Product.Parse(line);
-                    break;
-
-      
-                }
-            }
-
-            streamReader.Close();
-            return result;
-        }
-
 
         public List<Product> GetProducts(ProductFilter filter)
         {
-            List<Product> result = new List<Product>();
-            String line = string.Empty;
-
-
-            StreamReader streamReader = new StreamReader(filePath);
-            while ((line = streamReader.ReadLine()) != null)
-            {
-                if (
-                    (!filter.ProductType.HasValue || line.Contains(filter.ProductType?.ToString()))
-                    && 
-                    (string.IsNullOrEmpty(filter.OwnerName) || line.Contains(filter.OwnerName)))
-                {
-                    result.Add(Product.Parse(line));
-                }
-
-            }            
-
-            streamReader.Close();
-            return result;
+            List<Product> products = productRepository.GetProducts(filter);
+            return productRepository.GetProducts(filter);
         }
+
+
+        public void GenerateTestData(List<Owner> owners)
+        {
+            StreamWriter streamWriter = new StreamWriter(Constants.ProductStorePath, false);
+
+            for (var i = 0; i < 100; i++)
+            {
+                var product = new Product
+                {
+                    ProductId = Guid.NewGuid(),
+                    Name = $"Product_{i}",
+                    Type = (Entities.Enums.ProductType)((i % 2) == 0 ? 2 : 1),
+                    CreateDate = DateTime.Now.AddDays(i),
+                    EndDate = DateTime.Now.AddDays(i + 3),
+                    Owner = owners[(new Random().Next(owners.Count))]
+                };
+                streamWriter.WriteLine(product.ToString());
+            }
+
+            streamWriter.Flush();
+            streamWriter.Close();
+            streamWriter.Dispose();
+        }
+
+
+
+
+
+
+
+        //public void addRand(int count)
+        //{
+        //    StreamWriter streamWriter = new StreamWriter(Constants.ProductStorePath, false);
+        //    RandProduct rand = new RandProduct();
+        //    Product product;
+
+
+        //    for (int i = 0; i < count; i++)
+        //    {
+
+        //        try
+        //        {
+        //            product = rand.Rand();
+        //            streamWriter.WriteLine(product.ToString());
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            Console.WriteLine(ex.ToString());
+        //            Console.ReadKey();
+        //        }
+
+        //    }
+        //    streamWriter.Flush();
+        //    streamWriter.Close();
+        //    streamWriter.Dispose();
+        //}
+
+
+
 
 
 

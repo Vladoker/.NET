@@ -40,10 +40,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Repositories\OwnerRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ProductStore.Domain\ProductStore.Domain.csproj">
+      <Project>{8846301E-06DD-4669-A10C-711E1A2B7790}</Project>
+      <Name>ProductStore.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProductStore.Entities\ProductStore.Entities.csproj">
       <Project>{E61BF83E-3A73-48C5-9926-EBF18F72C2C2}</Project>
       <Name>ProductStore.Entities</Name>

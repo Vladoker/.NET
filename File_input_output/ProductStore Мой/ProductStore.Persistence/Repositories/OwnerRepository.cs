@@ -1,5 +1,4 @@
-﻿using ProductStore.Domain;
-using ProductStore.Entities;
+﻿using ProductStore.Entities;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,11 +17,11 @@ namespace ProductStore.Persistence.Repositories
         public OwnerRepository(string repositoryFilePath)
         {
             this.repositoryFilePath = repositoryFilePath;
-
         }
+
         public Owner AddOwner(Owner owner)
         {
-            streamWriter = new StreamWriter(repositoryFilePath, true);
+            streamWriter = new StreamWriter(repositoryFilePath,true);
             streamWriter.WriteLine(owner.ToString());
             streamWriter.Close();
 
@@ -32,7 +31,7 @@ namespace ProductStore.Persistence.Repositories
         public Owner GetOwner(Guid ownerId)
         {
             Owner result = null;
-            var line = string.Empty;
+            string line = string.Empty;
 
             streamReader = new StreamReader(repositoryFilePath);
             while ((line = streamReader.ReadLine()) != null)
@@ -50,8 +49,8 @@ namespace ProductStore.Persistence.Repositories
 
         public List<Owner> GetOwners()
         {
-            var result = new List<Owner>();
-            var line = string.Empty;
+            List<Owner> result = new List<Owner>();
+            string line = string.Empty;
 
             streamReader = new StreamReader(repositoryFilePath);
             while ((line = streamReader.ReadLine()) != null)
@@ -62,5 +61,35 @@ namespace ProductStore.Persistence.Repositories
 
             return result;
         }
+
+        public void DeleteOwner(Guid ownerId)
+        {
+
+            Owner owner = GetOwner(ownerId);
+            if (owner == null) return;
+
+            List<Owner> owners = GetOwners();
+
+            foreach (var item in owners)
+            {
+                if (item == owner)
+                {
+                    owners.Remove(item);
+                    break;
+                }
+            }
+
+
+
+            streamWriter = new StreamWriter(repositoryFilePath, true);
+
+            foreach (var item in owners)
+            {
+                streamWriter.WriteLine(item.ToString());
+            }
+            streamWriter.Close();
+
+        }
+
     }
 }
