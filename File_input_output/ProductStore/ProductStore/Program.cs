@@ -19,6 +19,48 @@ namespace ProductStore
     {
         static void Main(string[] args)
         {
+
+            ProductRepository productRepositoy = new ProductRepository(Constants.ProductStorePath);
+            ProductManager productManager = new ProductManager(productRepositoy);
+
+            OwnerRepository ownerRepository = new OwnerRepository(Constants.OwnerStorePath);
+            OwnerManager ownerManager = new OwnerManager(ownerRepository);
+
+
+
+            var listOwn = ownerManager.GetOwners();
+            var listProd = productManager.GetProducts(new ProductFilter());
+
+
+
+            Dictionary<Guid, string> Diction = new Dictionary<Guid, string>();
+
+            foreach (var i in listOwn)
+            {
+
+                foreach (var j in listProd)
+                {
+                    if(i.OwnerId == j.ProductId)
+                    {
+                        Diction.Add(i.OwnerId, j.Name);
+                    }
+                }
+     
+            }
+
+            foreach (var item in Diction)
+            {
+                Console.WriteLine(item.Key + " " + item.Value);
+            }
+
+
+
+
+            Console.ReadKey();
+        }
+
+        private static void DeliteOwnerGuid()
+        {
             ProductRepository productRepositoy = new ProductRepository(Constants.ProductStorePath);
             ProductManager productManager = new ProductManager(productRepositoy);
 
