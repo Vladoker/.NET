@@ -4,14 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Generics
+namespace ProductStore.Entities.Enums
 {
-    class Program
+    public enum ProductType
     {
-        static void Main(string[] args)
-        {
-
-
-        }
+        Food = 1,
+        Drink = 2
     }
 }
