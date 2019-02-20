@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AggregationServices\OwnerService.cs" />
+    <Compile Include="Comparer\Compares.cs" />
     <Compile Include="Managers\OwnerManager.cs" />
     <Compile Include="Managers\ProductManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
