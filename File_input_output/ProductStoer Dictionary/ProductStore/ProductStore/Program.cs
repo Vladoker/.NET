@@ -28,14 +28,14 @@ namespace ProductStore
 
 
             var products = productRepository.GetProducts(new ProductFilter());
-            ComparerProduct sortComparer = new ComparerProduct();
+           
 
-
+            
            
 
             ShowProduct(products);
             Console.WriteLine("\n-----------------------------------------------\nSorts list\n");
-            products.Sort();
+            products.Sort(new ComparerProduct());
      
             ShowProduct(products);
  
