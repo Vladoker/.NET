@@ -1,5 +1,4 @@
-﻿using ProductStore.Domain;
-using ProductStore.Entities;
+﻿using ProductStore.Entities;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,6 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ProductStore.Common.Extentions;
+using System.Xml;
+using System.Xml.Linq;
+using System.Xml.Serialization;
+using ProductStore.Domain;
 
 namespace ProductStore.Persistence.Repositories
 {
@@ -15,6 +18,8 @@ namespace ProductStore.Persistence.Repositories
         private string repositoryFilePath;
         private StreamWriter streamWriter;
         private StreamReader streamReader;
+
+        private XmlReader xmlReader;
 
         public ProductRepository(string repositoryFilePath)
         {
@@ -60,7 +65,7 @@ namespace ProductStore.Persistence.Repositories
             {
                 var product = Common.Extentions.ProductExtentions.Parse(line);
 
-                if (filter != null &&
+                if (filter == null || (filter != null &&
                     ((!filter.ProductType.HasValue || product.Type == filter.ProductType.Value)
                     &&
                     (filter.Owner == null|| product.Owner.OwnerId == filter.Owner.OwnerId)
@@ -68,7 +73,7 @@ namespace ProductStore.Persistence.Repositories
                     (!filter.ProductEndDate.HasValue || product.EndDate <= filter.ProductEndDate.Value)
                      &&
                     (!filter.ProductIsValid.HasValue || product.IsValid == filter.ProductIsValid.Value)
-                   ))
+                   )))
                 {
                     result.Add(product);
                 }
@@ -76,6 +81,37 @@ namespace ProductStore.Persistence.Repositories
             streamReader.Close();
 
             return result;
+        }
+
+        public List<ProductXml> GetProductsFromXml()
+        {
+            var result = new List<ProductXml>();
+            var product = new ProductXml();
+
+            using (xmlReader = XmlReader.Create(repositoryFilePath))
+            {
+                while (xmlReader.Read())
+                {
+                    if (xmlReader.NodeType == XmlNodeType.Element)
+                    {
+                        if (xmlReader.Name == "ProductXml")
+                        {
+                            //var productXml = XNode.ReadFrom(xmlReader);
+
+                            var serializer = new XmlSerializer(typeof(ProductXml));
+
+                            product = serializer.Deserialize(xmlReader) as ProductXml;
+
+                            if (product != null)
+                            {
+                                result.Add(product);
+                            }
+                        }
+                    }
+                }
+
+                return result;
+            }
         }
     }
 }

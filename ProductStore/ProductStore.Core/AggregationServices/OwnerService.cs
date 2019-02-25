@@ -19,7 +19,7 @@ namespace ProductStore.Core.AggregationServices
             this.productManager = productManager;
             this.ownerManager = ownerManager;
 
-           // Init();
+            Init();
         }
 
         public Owner CheckProduct(Guid productId)
@@ -41,39 +41,14 @@ namespace ProductStore.Core.AggregationServices
            return result;
         }
 
-        //private void Init()
-        //{
-        //    var owner = Guid.Empty;
+        private void Init()
+        {
+            var owner = Guid.Empty;
 
-        //        var products = productManager.GetProducts();
-                
+            var products = productManager.GetProducts();
 
-        //    var prodId = new List<Guid>();
-        //    foreach (var item in products)
-        //    {
-        //        if (true)
-        //        {
+            //dictionaryOwnerProducts.Add(owner, productIds);
 
-        //        }
-        //    }
-
-        //    foreach (var ownID in products)
-        //    {
-        //        foreach (var prodID in products)
-        //        {
-        //            if (ownID.Owner.OwnerId == prodID.ProductId)
-        //            {
-        //                prodId.Add(prodID.ProductId);
-        //            }
-        //        }
-
-        //        dictionaryOwnerProducts.Add(ownID.Owner.OwnerId, prodId);
-        //        prodId.Clear();
-        //    }
-
-
-        //    //dictionaryOwnerProducts.Add(owner, productIds);
-
-        //}
+        }
     }
 }

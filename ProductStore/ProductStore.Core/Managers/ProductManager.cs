@@ -22,19 +22,19 @@ namespace ProductStore.Core
             this.ownerManager = ownerManager;
         }
 
-        public Product AddProduct(Product product)
+        public ProductStore.Entities.Product AddProduct(ProductStore.Entities.Product product)
         {
             return productRepository.AddProduct(product);
         }
 
-        public Product GetProduct(Guid productId)
+        public ProductStore.Entities.Product GetProduct(Guid productId)
         {
             return productRepository.GetProduct(productId);
         }
 
-        public List<Product> GetProducts(ProductFilter filter = null)
+        public List<ProductStore.Entities.Product> GetProducts(ProductStore.Domain.ProductFilter filter = null)
         {
-            Owner filterOwner = null;
+            ProductStore.Entities.Owner filterOwner = null;
             if (filter != null && !string.IsNullOrEmpty(filter.Owner.OwnerName))
             {
                 filterOwner = ownerManager.GetOwner(filter.Owner.OwnerName);
@@ -51,16 +51,14 @@ namespace ProductStore.Core
 
             return products;
         }
-
-      
        
-        public void GenerateTestData(List<Owner> owners)
+        public void GenerateTestData(List<ProductStore.Entities.Owner> owners)
         {
             StreamWriter streamWriter = new StreamWriter(Constants.ProductStorePath, false);
 
             for (var i = 0; i < 1000; i++)
             {
-                var product = new Product
+                var product = new ProductStore.Entities.Product
                 {
                     ProductId = Guid.NewGuid(),
                     Name = $"Product_{i}",
@@ -76,5 +74,11 @@ namespace ProductStore.Core
             streamWriter.Close();
             streamWriter.Dispose();
         }
+
+        public List<ProductXml> GetProductsFromXml()
+        {
+            return productRepository.GetProductsFromXml();
+        }
+
     }
 }

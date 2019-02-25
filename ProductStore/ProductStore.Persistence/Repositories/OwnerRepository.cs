@@ -20,7 +20,7 @@ namespace ProductStore.Persistence.Repositories
             this.repositoryFilePath = repositoryFilePath;
 
         }
-        public Owner AddOwner(Owner owner)
+        public ProductStore.Entities.Owner AddOwner(Owner owner)
         {
             streamWriter = new StreamWriter(repositoryFilePath, true);
             streamWriter.WriteLine(owner.ToString());
