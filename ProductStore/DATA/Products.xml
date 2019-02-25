@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Products>
-	<ProductXml ProductId="09695773-97a2-490c-b5d2-83687a9a4cdb" ProductName="Lapte Acru" >
-		<Owner OwnerId="b99a8f6d-71d6-4930-823c-f385382a2a28" OwnerName="Bucuria"/>
+	<ProductXml ProductId="c6c31e5c-52e8-4517-9847-3b8600daeca2" ProductName="GLC">
+		<Owner OwnerId="8f132cb6-77fe-47e9-bb2b-652b12907443" OwnerName="Lapte" />
 	</ProductXml>
 </Products>

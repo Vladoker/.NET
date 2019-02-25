@@ -19,6 +19,60 @@ namespace ProductStore
     {
         static void Main(string[] args)
         {
+            ObjectToXmlfile();
+
+        }
+
+        private static void ObjectToXmlfile()
+        {
+            var program = new Program();
+
+            var ownerRepository = new OwnerRepository(Constants.OwnerStorePath);
+            var ownerManager = new OwnerManager(ownerRepository);
+
+            var productRepository = new ProductRepository(Constants.ProductStorePathXml);
+            var productManager = new ProductManager(productRepository, ownerManager);
+
+
+
+            var obj = new ProductXml { ProductName = "GLC", ProductId = Guid.NewGuid(), Owner = new OwnerXml { OwnerId = Guid.NewGuid(), OwnerName = "Lapte" } };
+
+            productManager.AddProductToXml(obj);
+        }
+
+        private static void SearchOwnerGuidToTxt()
+        {
+            var program = new Program();
+
+            var ownerRepository = new OwnerRepository(Constants.OwnerStorePath);
+            var ownerManager = new OwnerManager(ownerRepository);
+
+            var productRepository = new ProductRepository(Constants.ProductStorePathXml);
+            var productManager = new ProductManager(productRepository, ownerManager);
+
+            var ownerService = new OwnerService(productManager, ownerManager);
+
+            var productId = Guid.Parse("09695773-97a2-490c-b5d2-83687a9a4cdb");
+            var productOwner = ownerService.CheckProduct(productId);
+
+            Console.Write(productOwner.OwnerName);
+
+            var products = productManager.GetProducts();
+
+            program.DisplayProducts(products);
+
+            products.Sort(new ProductComparer(1));
+
+            Console.WriteLine();
+            Console.WriteLine("-----------------------------DIVIDER-----------------");
+            Console.WriteLine();
+
+            program.DisplayProducts(products);
+            Console.ReadKey();
+        }
+
+        private static void XmlToObject()
+        {
             var program = new Program();
 
             var ownerRepository = new OwnerRepository(Constants.OwnerStorePath);
@@ -34,24 +88,6 @@ namespace ProductStore
                 Console.WriteLine(product.ProductName);
             }
 
-            // var ownerService = new OwnerService(productManager, ownerManager);
-
-            // var productId = Guid.Parse("09695773-97a2-490c-b5d2-83687a9a4cdb");
-            // var productOwner = ownerService.CheckProduct(productId);
-
-            //Console.Write(productOwner.OwnerName);
-
-            //var products = productManager.GetProducts();
-
-            //program.DisplayProducts(products);
-
-            //products.Sort(new ProductComparer(1));
-
-            //Console.WriteLine();
-            //Console.WriteLine("-----------------------------DIVIDER-----------------");
-            //Console.WriteLine();
-
-            //program.DisplayProducts(products);
 
             Console.ReadKey();
         }

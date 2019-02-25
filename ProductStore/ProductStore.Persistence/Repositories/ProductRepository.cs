@@ -10,6 +10,7 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using ProductStore.Domain;
+using DataGenerator;
 
 namespace ProductStore.Persistence.Repositories
 {
@@ -18,8 +19,12 @@ namespace ProductStore.Persistence.Repositories
         private string repositoryFilePath;
         private StreamWriter streamWriter;
         private StreamReader streamReader;
+        
 
         private XmlReader xmlReader;
+        private XmlStreamWriter xmlStreamWriter;
+
+
 
         public ProductRepository(string repositoryFilePath)
         {
@@ -112,6 +117,22 @@ namespace ProductStore.Persistence.Repositories
 
                 return result;
             }
+        }
+
+        public ProductXml AddProductToXml(ProductXml product)
+        {
+            using (xmlStreamWriter = new XmlStreamWriter())
+            {
+                using (var xmlStream = System.IO.File.Create(repositoryFilePath))
+                {
+                    xmlStreamWriter.Begin(xmlStream, "Products");
+                    xmlStreamWriter.WriteElement(product);
+                    xmlStreamWriter.Finish();
+
+                }
+
+            }
+            return product;
         }
     }
 }

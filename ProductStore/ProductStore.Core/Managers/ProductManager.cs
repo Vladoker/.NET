@@ -80,5 +80,10 @@ namespace ProductStore.Core
             return productRepository.GetProductsFromXml();
         }
 
+        public ProductXml AddProductToXml(ProductXml product)
+        {
+            return productRepository.AddProductToXml(product);
+        }
+
     }
 }
