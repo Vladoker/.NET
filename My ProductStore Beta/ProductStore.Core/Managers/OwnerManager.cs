@@ -1,5 +1,4 @@
 ﻿using ProductStore.Entities;
-using ProductStore.Entities.Enums;
 using ProductStore.Persistence.Repositories;
 using System;
 using System.Collections.Generic;
@@ -18,8 +17,6 @@ namespace ProductStore.Core
             this.ownerRepository = ownerRepository;
         }
 
-        
-
         public Owner AddOwner(Owner owner)
         {
             return ownerRepository.AddOwner(owner);
@@ -30,14 +27,15 @@ namespace ProductStore.Core
             return ownerRepository.GetOwner(ownerId);
         }
 
+        public Owner GetOwner(string ownerName)
+        {
+            return ownerRepository.GetOwner(ownerName);
+        }
+
         public List<Owner> GetOwners()
         {
             return ownerRepository.GetOwners();
         }
 
-        public void DeleteOwner(Guid ownerId)
-        {
-            ownerRepository.DeleteOwner(ownerId);
-        }
     }
 }

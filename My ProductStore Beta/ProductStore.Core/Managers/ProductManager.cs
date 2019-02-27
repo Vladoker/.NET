@@ -1,14 +1,12 @@
 ﻿using ProductStore.Common;
-using ProductStore.Core.Rand;
 using ProductStore.Domain;
 using ProductStore.Entities;
-using ProductStore.Persistence;
+using ProductStore.Persistence.Repositories;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace ProductStore.Core
@@ -16,91 +14,75 @@ namespace ProductStore.Core
     public class ProductManager
     {
         private ProductRepository productRepository;
+        private OwnerManager ownerManager;
 
-        public ProductManager(ProductRepository productRepository) //конструктор
+        public ProductManager(ProductRepository productRepository, OwnerManager ownerManager)
         {
             this.productRepository = productRepository;
+            this.ownerManager = ownerManager;
         }
 
-        public Product AddProduct(Product product) // Метод который записывает Продукт в txt
+        public ProductStore.Entities.Product AddProduct(ProductStore.Entities.Product product)
         {
-            return productRepository.addProduct(product);
+            return productRepository.AddProduct(product);
         }
 
-        public Product GetProdcut(Guid productId) // возрощает продукт по указаному id 
+        public ProductStore.Entities.Product GetProduct(Guid productId)
         {
             return productRepository.GetProduct(productId);
         }
 
-        public List<Product> GetProducts(ProductFilter filter)
+        public List<ProductStore.Entities.Product> GetProducts(ProductStore.Domain.ProductFilter filter = null)
         {
-            List<Product> products = productRepository.GetProducts(filter);
-            return productRepository.GetProducts(filter);
-        }
-
-
-        public void GenerateTestData(List<Owner> owners)
-        {
-            StreamWriter streamWriter = new StreamWriter(Constants.ProductStorePath, false);
-
-            for (var i = 0; i < 100; i++)
+            ProductStore.Entities.Owner filterOwner = null;
+            if (filter != null && !string.IsNullOrEmpty(filter.Owner.OwnerName))
             {
-                var product = new Product
-                {
-                    ProductId = Guid.NewGuid(),
-                    Name = $"Product_{i}",
-                    Type = (Entities.Enums.ProductType)((i % 2) == 0 ? 2 : 1),
-                    CreateDate = DateTime.Now.AddDays(i),
-                    EndDate = DateTime.Now.AddDays(i + 3),
-                    Owner = owners[(new Random().Next(owners.Count))]
-                };
-                streamWriter.WriteLine(product.ToString());
+                filterOwner = ownerManager.GetOwner(filter.Owner.OwnerName);
+                filter.Owner = filterOwner;
             }
 
-            streamWriter.Flush();
-            streamWriter.Close();
-            streamWriter.Dispose();
+            var products = productRepository.GetProducts(filter);
+
+            foreach (var product in products)
+            {
+                var owner = ownerManager.GetOwner(product.Owner.OwnerId);
+                product.Owner = owner;
+            }
+
+            return products;
         }
 
+        public void GenerateTestData(List<ProductStore.Entities.OwnerXml> owners, int count)
+        {
+            var products = new List<ProductXml>();
 
+            for (var i = 0; i < count; i++)
+            {
+                var product = new ProductStore.Entities.ProductXml
+                {
+                    ProductId = Guid.NewGuid(),
+                    ProductName = $"Product_{i}",
+                    //Type = (Entities.Enums.ProductType)((i % 2) == 0 ? 2 : 1),
+                    //CreateDate = DateTime.Now.AddDays(i),
+                    //EndDate = DateTime.Now.AddDays(i + 3),
+                    Owner = owners[(new Random().Next(owners.Count))]
+                };
+                products.Add(product);
 
+              
+                //streamWriter.WriteLine(product.ToString());
+            }
+            productRepository.AddRangeProductsToXml(products);
+        }
 
+        public List<ProductXml> GetProductsFromXml()
+        {
+            return productRepository.GetProductsFromXml();
+        }
 
-
-
-        //public void addRand(int count)
-        //{
-        //    StreamWriter streamWriter = new StreamWriter(Constants.ProductStorePath, false);
-        //    RandProduct rand = new RandProduct();
-        //    Product product;
-
-
-        //    for (int i = 0; i < count; i++)
-        //    {
-
-        //        try
-        //        {
-        //            product = rand.Rand();
-        //            streamWriter.WriteLine(product.ToString());
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            Console.WriteLine(ex.ToString());
-        //            Console.ReadKey();
-        //        }
-
-        //    }
-        //    streamWriter.Flush();
-        //    streamWriter.Close();
-        //    streamWriter.Dispose();
-        //}
-
-
-
-
-
-
-
-
+        public ProductXml AddProductToXml(ProductXml product)
+        {
+            return productRepository.AddProductToXml(product);
+        }
     }
 }

@@ -59,7 +59,7 @@
       <Name>ProductStore.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProductStore.Domain\ProductStore.Domain.csproj">
-      <Project>{8846301e-06dd-4669-a10c-711e1a2b7790}</Project>
+      <Project>{87D88108-09FC-44FC-BD6B-4A5CAB76B19A}</Project>
       <Name>ProductStore.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProductStore.Entities\ProductStore.Entities.csproj">
@@ -67,7 +67,7 @@
       <Name>ProductStore.Entities</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProductStore.Persistence\ProductStore.Persistence.csproj">
-      <Project>{ad8781d8-e3de-4e4a-b8dc-92ac7cb5ef2c}</Project>
+      <Project>{AD8781D8-E3DE-4E4A-B8DC-92AC7CB5EF2C}</Project>
       <Name>ProductStore.Persistence</Name>
     </ProjectReference>
   </ItemGroup>

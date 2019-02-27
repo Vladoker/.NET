@@ -6,9 +6,18 @@ using System.Threading.Tasks;
 
 namespace ProductStore.Entities.Enums
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public enum ProductType
     {
-        Food = 0,
-        Drink = 1
+        /// <summary>
+        /// 
+        /// </summary>
+        Food = 1,
+        /// <summary>
+        /// 
+        /// </summary>
+        Drink = 2
     }
 }

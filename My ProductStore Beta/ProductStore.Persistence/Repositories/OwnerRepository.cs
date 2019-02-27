@@ -1,4 +1,5 @@
-﻿using ProductStore.Entities;
+﻿using ProductStore.Domain;
+using ProductStore.Entities;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,11 +18,11 @@ namespace ProductStore.Persistence.Repositories
         public OwnerRepository(string repositoryFilePath)
         {
             this.repositoryFilePath = repositoryFilePath;
-        }
 
-        public Owner AddOwner(Owner owner)
+        }
+        public ProductStore.Entities.Owner AddOwner(Owner owner)
         {
-            streamWriter = new StreamWriter(repositoryFilePath,true);
+            streamWriter = new StreamWriter(repositoryFilePath, true);
             streamWriter.WriteLine(owner.ToString());
             streamWriter.Close();
 
@@ -31,12 +32,31 @@ namespace ProductStore.Persistence.Repositories
         public Owner GetOwner(Guid ownerId)
         {
             Owner result = null;
-            string line = string.Empty;
+            var line = string.Empty;
 
             streamReader = new StreamReader(repositoryFilePath);
             while ((line = streamReader.ReadLine()) != null)
             {
-                if (line.Contains(ownerId.ToString().ToUpper()))
+                if (line.Contains(ownerId.ToString()))
+                {
+                    result = Owner.Parse(line);
+                    break;
+                }
+            }
+            streamReader.Close();
+
+            return result;
+        }
+
+        public Owner GetOwner(string ownerName)
+        {
+            Owner result = null;
+            var line = string.Empty;
+
+            streamReader = new StreamReader(repositoryFilePath);
+            while ((line = streamReader.ReadLine()) != null)
+            {
+                if (line.Contains(ownerName))
                 {
                     result = Owner.Parse(line);
                     break;
@@ -49,8 +69,8 @@ namespace ProductStore.Persistence.Repositories
 
         public List<Owner> GetOwners()
         {
-            List<Owner> result = new List<Owner>();
-            string line = string.Empty;
+            var result = new List<Owner>();
+            var line = string.Empty;
 
             streamReader = new StreamReader(repositoryFilePath);
             while ((line = streamReader.ReadLine()) != null)
@@ -61,35 +81,5 @@ namespace ProductStore.Persistence.Repositories
 
             return result;
         }
-
-        public void DeleteOwner(Guid ownerId)
-        {
-
-            Owner owner = GetOwner(ownerId);
-            if (owner == null) return;
-
-            List<Owner> owners = GetOwners();
-
-            foreach (var item in owners)
-            {
-                if (item.OwnerId == owner.OwnerId)
-                {
-                    owners.Remove(item);
-                    break;
-                }
-            }
-
-
-
-            streamWriter = new StreamWriter(repositoryFilePath, false);
-
-            foreach (var item in owners)
-            {
-                streamWriter.WriteLine(item.ToString());
-            }
-            streamWriter.Close();
-
-        }
-
     }
 }

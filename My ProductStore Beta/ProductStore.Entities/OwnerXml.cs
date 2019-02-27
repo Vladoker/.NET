@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace ProductStore.Entities
 {
-    public class Owner
+    [Serializable]
+    public class OwnerXml
     {
+        [XmlAttribute]
         public Guid OwnerId { get; set; }
+        [XmlAttribute]
         public string OwnerName { get; set; }
 
         public override string ToString()
@@ -16,7 +20,7 @@ namespace ProductStore.Entities
             return $"{this.OwnerId};{this.OwnerName}";
         }
 
-        public static Owner Parse(string owner)
+        public static OwnerXml Parse(string owner)
         {
             if (string.IsNullOrEmpty(owner))
             {
@@ -25,7 +29,7 @@ namespace ProductStore.Entities
 
             var ownerSplited = owner.Split(new char[] { ';' });
 
-            return new Owner
+            return new OwnerXml
             {
                 OwnerId = Guid.Parse(ownerSplited[0]),
                 OwnerName = ownerSplited[1]

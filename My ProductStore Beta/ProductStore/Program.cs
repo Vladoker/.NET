@@ -1,17 +1,17 @@
 ﻿using ProductStore.Common;
 using ProductStore.Core;
-using ProductStore.Core.Rand;
 using ProductStore.Domain;
 using ProductStore.Entities;
-using ProductStore.Persistence;
+using ProductStore.Entities.Enums;
 using ProductStore.Persistence.Repositories;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
+using ProductStore.Common.Extentions;
+using ProductStore.Core.AggregationServices;
+using ProductStore.Core.Comparers;
 
 namespace ProductStore
 {
@@ -19,79 +19,76 @@ namespace ProductStore
     {
         static void Main(string[] args)
         {
+            var program = new Program();
 
-            ProductRepository productRepositoy = new ProductRepository(Constants.ProductStorePath);
-            ProductManager productManager = new ProductManager(productRepositoy);
+            var ownerRepository = new OwnerRepository(Constants.OwnerStorePath);
+            var ownerManager = new OwnerManager(ownerRepository);
 
-            OwnerRepository ownerRepository = new OwnerRepository(Constants.OwnerStorePath);
-            OwnerManager ownerManager = new OwnerManager(ownerRepository);
+            var productRepository = new ProductRepository(Constants.ProductStorePathXml);
+            var productManager = new ProductManager(productRepository, ownerManager);
 
+            /* --******Read from Xml 
+            var products = productManager.GetProductsFromXml();
 
-
-            var listOwn = ownerManager.GetOwners();
-            var listProd = productManager.GetProducts(new ProductFilter());
-
-
-
-            Dictionary<Guid, string> Diction = new Dictionary<Guid, string>();
-
-            foreach (var i in listOwn)
+            foreach (var product in products)
             {
-
-                foreach (var j in listProd)
-                {
-                    if(i.OwnerId == j.ProductId)
-                    {
-                        Diction.Add(i.OwnerId, j.Name);
-                    }
-                }
-     
+                Console.WriteLine(product.ProductName);
             }
 
-            foreach (var item in Diction)
-            {
-                Console.WriteLine(item.Key + " " + item.Value);
-            }
+             */
 
 
 
+
+            //var product = new ProductXml
+            //{
+            //    ProductId = Guid.NewGuid(),
+            //    ProductName = "Lapte Acru",
+            //    Owner = new OwnerXml
+            //    {
+            //        OwnerId = Guid.NewGuid(),
+            //        OwnerName = "JLC"
+            //    }
+            //};
+
+            //productManager.AddProductToXml(product);
+
+
+
+
+
+
+
+
+
+            // var ownerService = new OwnerService(productManager, ownerManager);
+
+            // var productId = Guid.Parse("09695773-97a2-490c-b5d2-83687a9a4cdb");
+            // var productOwner = ownerService.CheckProduct(productId);
+
+            //Console.Write(productOwner.OwnerName);
+
+            //var products = productManager.GetProducts();
+
+            //program.DisplayProducts(products);
+
+            //products.Sort(new ProductComparer(1));
+
+            //Console.WriteLine();
+            //Console.WriteLine("-----------------------------DIVIDER-----------------");
+            //Console.WriteLine();
+
+            //program.DisplayProducts(products);
 
             Console.ReadKey();
         }
 
-        private static void DeliteOwnerGuid()
+        public void DisplayProducts(List<ProductStore.Entities.Product> products)
         {
-            ProductRepository productRepositoy = new ProductRepository(Constants.ProductStorePath);
-            ProductManager productManager = new ProductManager(productRepositoy);
-
-            OwnerRepository ownerRepository = new OwnerRepository(Constants.OwnerStorePath);
-            OwnerManager ownerManager = new OwnerManager(ownerRepository);
-
-
-            var owners = ownerManager.GetOwners();
-
-
-            Console.WriteLine("До");
-            foreach (var item in owners)
+            foreach (var product in products)
             {
-                Console.WriteLine(item);
+                Console.WriteLine(product.ToString());
             }
-
-
-
-            ownerManager.DeleteOwner(Guid.Parse("825193E7-3091-492A-84D3-21963616B62F"));
-
-
-            Console.WriteLine();
-            Console.WriteLine("После");
-
-            foreach (var item in owners)
-            {
-                Console.WriteLine(item);
-            }
-
-
-            Console.ReadKey();
         }
     }
 }
