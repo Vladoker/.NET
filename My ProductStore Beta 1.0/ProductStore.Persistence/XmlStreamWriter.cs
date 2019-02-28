@@ -16,13 +16,24 @@ namespace ProductStore.Persistence
 	public class XmlStreamWriter : IDisposable
     {
         private string xmlNamespace = string.Empty;
-        protected XmlWriter xmlWriter;
+        private string StreamPatch;
+        private XmlWriter xmlWriter;
+        private Stream xmlStream;
+
+        public XmlStreamWriter()
+        { }
+
+        public XmlStreamWriter(string filePatch)
+        {
+            StreamPatch = filePatch;
+        }
 
         /// <summary>
         /// Begins the writing.
         /// </summary>
-        public void Begin(Stream xmlStream, string rootElementName)
+        public void Begin(string rootElementName)
         {
+            xmlStream = System.IO.File.Create(StreamPatch);
             var writerSettings = new XmlWriterSettings { Indent = true, IndentChars = "\t" };
             xmlWriter = XmlWriter.Create(xmlStream, writerSettings);
             xmlWriter.WriteStartElement(rootElementName, xmlNamespace);
@@ -42,8 +53,9 @@ namespace ProductStore.Persistence
         /// </summary>
         public void Finish()
         {
-            xmlWriter.WriteEndElement();
+            xmlWriter.WriteEndElement();          
             xmlWriter.Close();
+            xmlStream.Close();
         }
 
         /// <summary>
@@ -52,6 +64,7 @@ namespace ProductStore.Persistence
         public void Dispose()
         {
             xmlWriter.Dispose();
+            xmlStream.Dispose();
         }
 
         protected void Serialize(ProductXml productXml)

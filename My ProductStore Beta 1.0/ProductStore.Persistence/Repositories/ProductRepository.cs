@@ -10,6 +10,7 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using ProductStore.Domain;
+using ProductStore.Common;
 
 namespace ProductStore.Persistence.Repositories
 {
@@ -147,21 +148,44 @@ namespace ProductStore.Persistence.Repositories
             }
         }
 
-        public void RemoveProductXml(Guid productId)
+        public ProductXml RemoveProductFromXml(Guid productId)
         {
-            using (xmlReader = XmlReader.Create(repositoryFilePath))
+            var result = new ProductXml();
+            ProductXml product;
+
+            var tempFileName = $"{Guid.NewGuid()}_Products.xml";
+            var tempProductStorePathXml = Path.Combine(Constants.TempProductStorePathXml, tempFileName);
+
+            xmlStreamWriter = new XmlStreamWriter(tempProductStorePathXml);
+            xmlStreamWriter.Begin("Products");
+
+            using (xmlReader = XmlReader.Create(tempFileName))
             {
                 while (xmlReader.Read())
                 {
-                    if (xmlReader.NodeType == XmlNodeType.Element)
+                    if (xmlReader.NodeType == XmlNodeType.Element && xmlReader.Name == "ProductXml")
                     {
-                        if (xmlReader.Name == "ProductXml")
+                        var serealize = new XmlSerializer(typeof(ProductXml));
+                        product = serealize.Deserialize(xmlReader) as ProductXml;
+
+                        if (product != null && product.ProductId == productId)
                         {
-                           
+                            xmlStreamWriter.WriteElement(product);
                         }
+                        else result = product;
+
                     }
                 }
             }
+            xmlStreamWriter.Finish();
+            xmlStreamWriter.Dispose();
+
+            // 1. Remove Original File
+            File.Delete(tempFileName);
+            // 2. Rename Temp File
+            File.Copy(tempProductStorePathXml, repositoryFilePath);
+
+            return result;
         }
     }
 }

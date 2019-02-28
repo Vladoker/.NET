@@ -17,5 +17,7 @@ namespace ProductStore.Common
         public const string OwnerStorePath = @"D:\ProductStore\ProductStore\DATA\Owners.txt";
 
         public const string ProductStorePathXml = @"D:\ProductStore\ProductStore\DATA\Products.xml";
+
+        public const string TempProductStorePathXml = @"D:\ProductStore\ProductStore\DATA\";
     }
 }
