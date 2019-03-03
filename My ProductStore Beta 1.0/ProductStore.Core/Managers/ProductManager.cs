@@ -54,7 +54,7 @@ namespace ProductStore.Core
 
         public void GenerateTestData(List<ProductStore.Entities.OwnerXml> owners, int count)
         {
-            var products = new List<ProductXml>();
+            List<ProductXml> products = new List<ProductXml>();
 
             for (var i = 0; i < count; i++)
             {
@@ -75,6 +75,20 @@ namespace ProductStore.Core
             productRepository.AddRangeProductsToXml(products);
         }
 
+        public List<ProductXml> GenerateTestDataXml(int count)
+        {
+            List<ProductXml> result = new List<ProductXml>(count);
+            
+
+            for (int i = 0; i < count; i++)
+            { 
+                result.Add(new ProductXml { ProductId = Guid.NewGuid(), ProductName = $"{i+1}_ProductName", Prica = new Random().Next(20, 700), Owner = new OwnerXml { OwnerId = Guid.NewGuid(), OwnerName = $"{i+1}_OwnerName" } });      
+                
+            }
+            productRepository.AddRangeProductsToXml(result);
+            return result;
+        }
+
         public List<ProductXml> GetProductsFromXml()
         {
             return productRepository.GetProductsFromXml();
@@ -83,6 +97,11 @@ namespace ProductStore.Core
         public ProductXml AddProductToXml(ProductXml product)
         {
             return productRepository.AddProductToXml(product);
+        }
+
+        public ProductXml RemoveProductFromXml (Guid ProductId)
+        {
+            return productRepository.RemoveProductFromXml(ProductId);
         }
     }
 }

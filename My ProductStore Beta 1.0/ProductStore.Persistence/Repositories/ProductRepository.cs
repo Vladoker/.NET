@@ -120,55 +120,52 @@ namespace ProductStore.Persistence.Repositories
 
         public ProductXml AddProductToXml(ProductXml product)
         {
-            using (xmlStreamWriter = new XmlStreamWriter())
-            {
-                using (var xmlStream = System.IO.File.Create(repositoryFilePath))
-                {
-                    xmlStreamWriter.Begin(xmlStream, "Products");
+            using (xmlStreamWriter = new XmlStreamWriter(repositoryFilePath))
+            {        
+
+                    xmlStreamWriter.Begin("Products");
                     xmlStreamWriter.WriteElement(product);
                     xmlStreamWriter.Finish();
-                }
+                
             }
             return product;
         }
 
         public void AddRangeProductsToXml(List<ProductXml> products)
         {
-            using (xmlStreamWriter = new XmlStreamWriter())
+            using (xmlStreamWriter = new XmlStreamWriter(repositoryFilePath))
             {
-                using (var xmlStream = System.IO.File.Create(repositoryFilePath))
-                {
-                    xmlStreamWriter.Begin(xmlStream, "Products");
-                    foreach (var product in products)
+               
+                    xmlStreamWriter.Begin("Products");
+                    foreach (ProductXml product in products)
                     {
                         xmlStreamWriter.WriteElement(product);
                     }
-                    xmlStreamWriter.Finish();
-                }
+                    xmlStreamWriter.Finish();   
             }
         }
 
         public ProductXml RemoveProductFromXml(Guid productId)
         {
-            var result = new ProductXml();
+            ProductXml result = new ProductXml();
             ProductXml product;
 
-            var tempFileName = $"{Guid.NewGuid()}_Products.xml";
-            var tempProductStorePathXml = Path.Combine(Constants.TempProductStorePathXml, tempFileName);
+            string tempFileName = $"{Guid.NewGuid()}_Products.xml";
+            string tempProductStorePathXml = Path.Combine(Constants.TempProductStorePathXml, tempFileName);
 
             xmlStreamWriter = new XmlStreamWriter(tempProductStorePathXml);
             xmlStreamWriter.Begin("Products");
 
-            using (xmlReader = XmlReader.Create(tempFileName))
+            using (xmlReader = XmlReader.Create(repositoryFilePath))
             {
                 while (xmlReader.Read())
                 {
                     if (xmlReader.NodeType == XmlNodeType.Element && xmlReader.Name == "ProductXml")
                     {
-                        var serealize = new XmlSerializer(typeof(ProductXml));
+                        XmlSerializer serealize = new XmlSerializer(typeof(ProductXml));
                         product = serealize.Deserialize(xmlReader) as ProductXml;
 
-                        if (product != null && product.ProductId == productId)
+                        if (product != null && product.ProductId != productId)
                         {
                             xmlStreamWriter.WriteElement(product);
                         }
@@ -181,11 +178,16 @@ namespace ProductStore.Persistence.Repositories
             xmlStreamWriter.Dispose();
 
             // 1. Remove Original File
-            File.Delete(tempFileName);
+            File.Delete(repositoryFilePath);
             // 2. Rename Temp File
             File.Copy(tempProductStorePathXml, repositoryFilePath);
+            //
+            File.Delete(tempProductStorePathXml);
+
 
             return result;
         }
+
+
     }
 }

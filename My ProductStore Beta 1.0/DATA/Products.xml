@@ -1,6 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Products>
-	<ProductXml ProductId="f8815e0b-b062-40a5-8e0c-391808f31493" ProductName="Lapte Acru">
-		<Owner OwnerId="96474fb8-ab86-4490-b8d2-4e82eb79ac92" OwnerName="JLC" />
+	<ProductXml ProductId="710eec3f-f237-4f62-8030-518a9bce96f1" ProductName="Lapte Acru">
+		<Owner OwnerId="f782d95a-9a52-422e-af81-1da8d968fb5d" OwnerName="JLC" />
+	</ProductXml>
+	<ProductXml ProductId="710eec3f-f237-4f62-8030-518a9bce96f2" ProductName="Riga">
+		<Owner OwnerId="f782d95a-9a52-422e-af81-1da8d968fb5e" OwnerName="Franzeluta" />
+	</ProductXml>
+	<ProductXml ProductId="710eec3f-f237-4f62-8030-518a9bce96f3" ProductName="Chisinau">
+		<Owner OwnerId="f782d95a-9a52-422e-af81-1da8d968fb5f" OwnerName="Efes" />
 	</ProductXml>
 </Products>

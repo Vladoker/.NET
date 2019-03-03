@@ -34,7 +34,7 @@ namespace ProductStore.Persistence
         public void Begin(string rootElementName)
         {
             xmlStream = System.IO.File.Create(StreamPatch);
-            var writerSettings = new XmlWriterSettings { Indent = true, IndentChars = "\t" };
+            XmlWriterSettings writerSettings = new XmlWriterSettings { Indent = true, IndentChars = "\t" };
             xmlWriter = XmlWriter.Create(xmlStream, writerSettings);
             xmlWriter.WriteStartElement(rootElementName, xmlNamespace);
         }
@@ -69,10 +69,10 @@ namespace ProductStore.Persistence
 
         protected void Serialize(ProductXml productXml)
         {
-            var xmlSerializerNamespaces = new XmlSerializerNamespaces();
+            XmlSerializerNamespaces xmlSerializerNamespaces = new XmlSerializerNamespaces();
             xmlSerializerNamespaces.Add(string.Empty, string.Empty);
 
-            var xmlSerializer = new XmlSerializer(productXml.GetType());
+            XmlSerializer xmlSerializer = new XmlSerializer(productXml.GetType());
             xmlSerializer.Serialize(xmlWriter, productXml, xmlSerializerNamespaces);
         }
     }

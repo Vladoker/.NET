@@ -16,9 +16,8 @@ namespace ProductStore.Entities
         public Guid ProductId { get; set; }
         [XmlAttribute]
         public string ProductName { get; set; }
-        //public ProductType Type { get; set; }
-        //public DateTime CreateDate { get; set; }
-        //public DateTime EndDate { get; set; }
+        [XmlAttribute]
+        public decimal Prica { get; set; }
 
         public OwnerXml Owner { get; set; }
      }

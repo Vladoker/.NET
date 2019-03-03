@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using ProductStore.Entities.Enums;
+﻿using ProductStore.Entities.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
