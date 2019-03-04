@@ -77,12 +77,27 @@ namespace ProductStore.Core
 
         public List<ProductXml> GenerateTestDataXml(int count)
         {
-            List<ProductXml> result = new List<ProductXml>(count);
-            
+            var result = new List<ProductXml>(count);
+
+            var randomer = new Random();
 
             for (int i = 0; i < count; i++)
             { 
-                result.Add(new ProductXml { ProductId = Guid.NewGuid(), ProductName = $"{i+1}_ProductName", Prica = new Random().Next(20, 700), Owner = new OwnerXml { OwnerId = Guid.NewGuid(), OwnerName = $"{i+1}_OwnerName" } });      
+                result.Add(new ProductXml
+                {
+                    ProductId = Guid.NewGuid(),
+
+                    /// Utilities.GetStringOfCaracters(10)
+                    /// Utilities.GetDecemalOfDigits(2)
+                    /// Utilities.GetIntegerOfDigits(3)
+                    ProductName = $"{i+1}_ProductName",
+                    Prica = randomer.Next(20, 700),
+                    Owner = new OwnerXml
+                    {
+                        OwnerId = Guid.NewGuid(),
+                        OwnerName = $"{i+1}_OwnerName"
+                    }
+                });      
                 
             }
             productRepository.AddRangeProductsToXml(result);

@@ -6,7 +6,7 @@
 	<ProductXml ProductId="710eec3f-f237-4f62-8030-518a9bce96f2" ProductName="Riga">
 		<Owner OwnerId="f782d95a-9a52-422e-af81-1da8d968fb5e" OwnerName="Franzeluta" />
 	</ProductXml>
-	<ProductXml ProductId="710eec3f-f237-4f62-8030-518a9bce96f3" ProductName="Chisinau">
+		<ProductXml ProductId="710eec3f-f237-4f62-8030-518a9bce96f3" ProductName="Chisinau">
 		<Owner OwnerId="f782d95a-9a52-422e-af81-1da8d968fb5f" OwnerName="Efes" />
 	</ProductXml>
 </Products>

@@ -30,12 +30,14 @@ namespace ProductStore
 
 
 
-            var randProductXml = productManager.GenerateTestDataXml(20);
 
-            foreach (var item in randProductXml)
-            {
-                Console.WriteLine(item.ProductName + " " + item.ProductId + " " + item.Prica + " " + item.Owner.OwnerId + " " + item.Owner.OwnerName);
-            }
+
+            //var randProductXml = productManager.GenerateTestDataXml(20);
+
+            //foreach (var item in randProductXml)
+            //{
+            //    Console.WriteLine(item.ProductName + " " + item.ProductId + " " + item.Prica + " " + item.Owner.OwnerId + " " + item.Owner.OwnerName);
+            //}
 
 
 
@@ -57,8 +59,8 @@ namespace ProductStore
             //ProductXml product = new ProductXml
             //{
             //    ProductId = Guid.NewGuid(),
-            //    ProductName = "Lapte Acru",  
-            //    Prica = 22,
+            //    ProductName = "Lapte Acru",
+            //    Prica = 22.55M,
             //    Owner = new OwnerXml
             //    {
             //        OwnerId = Guid.NewGuid(),
