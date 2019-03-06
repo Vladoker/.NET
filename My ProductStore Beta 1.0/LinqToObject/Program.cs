@@ -10,6 +10,96 @@ namespace LinqToObject
     {
         static void Main(string[] args)
         {
+            SearchCity();
+        }
+
+        private static void SearchCity()
+        {
+            List<string> sity = new List<string>(20)
+            {
+                "Кишинёв",
+                "Киев",
+                "Копенгаген",
+                "Мумбаи",
+                "Флорианополис",
+                "Сиэтл",
+                "Осло",
+                "Тель-Авив",
+                "Лиссабон",
+                "Кали",
+                "Окленд",
+                "Стамбул",
+                "Ханой",
+                "Токио",
+                "Тайбэй",
+                "Рейкьявик",
+                "Берлин",
+                "Кейптаун",
+                "Лондон",
+                "Торонто",
+            };
+
+
+            Console.Write("\nВведите первую букву города - ");
+            string strStart = IsLetter(Console.ReadKey().KeyChar);
+
+
+            Console.Write("\nВведите последнию букву города - ");
+            string str_End = IsEnd(Console.ReadKey().KeyChar);
+
+
+            Console.WriteLine();
+
+
+            var result = from s in sity where s[0].ToString() == strStart where s[s.Length - 1].ToString() == str_End select s;
+
+
+
+            if (result.Count() == 0) Console.WriteLine("\n\nТакого города нету");
+            else
+            {
+                Console.WriteLine("\nГорода\n\n");
+                foreach (var item in result)
+                {
+                    Console.WriteLine(item);
+                }
+            }
+
+            Console.ReadKey();
+        }
+
+        public static string IsLetter(Char c)
+        {
+            var digit = new List<Char> { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+        
+            while (digit.Contains(c))
+            {
+                Console.WriteLine();
+                Console.Write("Неправельный ввод данных : ");
+                c = Console.ReadKey().KeyChar;             
+            }
+
+            string str = c.ToString().ToUpper();
+            return str;
+        }
+
+        public static string IsEnd(Char c)
+        {
+            var digit = new List<Char> { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+
+            while (digit.Contains(c))
+            {
+                Console.WriteLine();
+                Console.Write("Неправельный ввод данных : ");
+                c = Console.ReadKey().KeyChar;
+            }
+            
+            string str = c.ToString().ToLower();
+            return str;
+        }
+
+        private static void Lesson1_Join_LINQ()
+        {
             var contracts = new List<Contract>
             {
               new Contract { ContractId = 1, ContracDate = DateTime.Now.AddDays(-1) },
@@ -46,14 +136,7 @@ namespace LinqToObject
             }
 
             Console.ReadKey();
-
-            //var result = contracts.Join(invoices, // второй набор
-            // c => c.ContractId, // свойство-селектор объекта из первого набора
-            // i => i.ContractId,// свойство-селектор объекта из второго набора
-            // (c, i) => new { ContractId = c.ContractId, ContracDate = c.ContracDate, InvoiceId = i.InvoiceId,}); // результат
-
-
-
         }
+
     }
 }
