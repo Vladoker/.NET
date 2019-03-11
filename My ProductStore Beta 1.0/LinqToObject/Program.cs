@@ -51,7 +51,7 @@ namespace LinqToObject
             Console.WriteLine();
 
 
-            var result = from s in sity where s[0].ToString() == strStart where s[s.Length - 1].ToString() == str_End select s;
+            var result = from s in sity where s[0].ToString().ToLower() == strStart.ToLower() where s[s.Length - 1].ToString().ToLower() == str_End.ToLower() select s;
 
 
 
