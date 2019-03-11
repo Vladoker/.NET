@@ -58,7 +58,7 @@ namespace LinqToObject
             if (result.Count() == 0) Console.WriteLine("\n\nТакого города нету");
             else
             {
-                Console.WriteLine("\nГорода\n\n");
+                Console.WriteLine("\nГорода:\n");
                 foreach (var item in result)
                 {
                     Console.WriteLine(item);
@@ -79,7 +79,7 @@ namespace LinqToObject
                 c = Console.ReadKey().KeyChar;             
             }
 
-            string str = c.ToString().ToUpper();
+            string str = c.ToString();
             return str;
         }
 
@@ -94,7 +94,7 @@ namespace LinqToObject
                 c = Console.ReadKey().KeyChar;
             }
             
-            string str = c.ToString().ToLower();
+            string str = c.ToString();
             return str;
         }
 
