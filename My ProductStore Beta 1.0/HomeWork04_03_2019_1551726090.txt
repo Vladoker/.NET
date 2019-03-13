@@ -1,0 +1,17 @@
+1. Generate List of 20 cities like "ROME", "AMSTERDAM", "CHISINAU", etc 
+Allow user to enter the START character/letter of city
+Allow user to enter the END character/letter of city
+
+HAPPYPATH:
+Display on the screen all cities that corespond to user' inputs.
+
+UNHAPPYPATH:
+Display to user the following message "No data found"
+
+
+2. Add the ContractStatus property (allowed values: Pending, Open, Closed) to the Contract class
+Display on the screen contracts grouped by ContractStatus using grouping Linq.
+
+
+ 
+ 
