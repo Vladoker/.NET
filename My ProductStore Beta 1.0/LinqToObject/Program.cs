@@ -10,7 +10,49 @@ namespace LinqToObject
     {
         static void Main(string[] args)
         {
-            SearchCity();
+            
+        }
+
+        private static void GroupedContractsLINQ()
+        {
+            var contracts = new List<Contract>
+            {
+             new Contract { ContractId = 1, ContracDate = DateTime.Now.AddDays(-1), Status = Domain.Enums.ContractStatus.Pending },
+               new Contract { ContractId = 2, ContracDate = DateTime.Now.AddDays(-3), Status =  Domain.Enums.ContractStatus.Opened },
+               new Contract { ContractId = 3, ContracDate = DateTime.Now.AddDays(1), Status =  Domain.Enums.ContractStatus.Closed },
+               new Contract { ContractId = 4, ContracDate = DateTime.Now.AddDays(5) , Status =  Domain.Enums.ContractStatus.Closed},
+               new Contract { ContractId = 5, ContracDate = DateTime.Now.AddDays(2), Status =  Domain.Enums.ContractStatus.Opened }
+
+            };
+
+            var invoices = new List<Invoice>
+            {
+                new Invoice{InvoiceId = Guid.NewGuid(), ContractId = 5, Total = 100.00M },
+                new Invoice{InvoiceId = Guid.NewGuid(), ContractId = 4, Total = 200.00M },
+                new Invoice{InvoiceId = Guid.NewGuid(), ContractId = 3, Total = 300.00M },
+                new Invoice{InvoiceId = Guid.NewGuid(), ContractId = 2, Total = 400.00M },
+                new Invoice{InvoiceId = Guid.NewGuid(), ContractId = 1, Total = 500.00M }
+            };
+
+            var groupedContracts = from c in contracts
+                                   group c by c.Status into ContractStatusGroup
+                                   select new
+                                   {
+                                       ContractStatus = ContractStatusGroup.Key,
+                                       Contract = ContractStatusGroup.ToList()
+                                   };
+
+            foreach (var gc in groupedContracts)
+            {
+                Console.WriteLine(gc.ContractStatus);
+                foreach (var item in gc.Contract)
+                {
+                    Console.WriteLine($"ContractId => {item.ContractId} ContractDate => {item.ContracDate} Status => {item.Status}");
+                }
+            }
+
+
+            Console.ReadKey();
         }
 
         private static void SearchCity()
