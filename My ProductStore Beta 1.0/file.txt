@@ -1,0 +1,2 @@
+2019-03-13 20:58:55,624 [1] INFO  Logging.Test1 [(null)] - Start
+2019-03-13 20:58:55,681 [1] INFO  Logging.Test1 [(null)] -  Finish Рузультат сложения: 4
