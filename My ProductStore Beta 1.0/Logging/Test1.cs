@@ -8,17 +8,24 @@ using log4net.Config;
 
 namespace Logging
 {
-    public static class Test1
+    public class Test1
     {
-        public static readonly ILog log = LogManager.GetLogger(typeof(Test1));
+        private Logger logger;
 
-        public static void Test()
+        public Test1(Logger logger)
         {
-            log.Info("Start");
+            this.logger = logger;
+        }
+
+        public int Test()
+        {
+            logger.LogInfo("Start");
 
             int n = 2 + 2;
 
-            log.Info(" Finish Рузультат сложения: " + n);
+            logger.LogInfo(" Finish Рузультат сложения: " + n);
+
+            return n;
         }
     }
 }

@@ -13,11 +13,18 @@ namespace Logging
     {
         static void Main(string[] args)
         {
-            log4net.Config.XmlConfigurator.Configure();
 
-            string productStorePathXml = ConfigurationManager.AppSettings["Test1"];
+            var logger = new Logger(LogManager.GetLogger("PSLogger"));
 
-            Test1.Test();
+
+            Test1 test = new Test1(logger);
+            Test2 TestEror = new Test2(logger);
+
+            test.Test();
+            TestEror.Test();
+
+
+
 
             Console.ReadKey();
         }
