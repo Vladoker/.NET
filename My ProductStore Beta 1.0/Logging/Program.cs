@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using log4net;
 using log4net.Config;
+using System.Configuration;
 
 namespace Logging
 {
@@ -13,6 +14,8 @@ namespace Logging
         static void Main(string[] args)
         {
             log4net.Config.XmlConfigurator.Configure();
+
+            string productStorePathXml = ConfigurationManager.AppSettings["Test1"];
 
             Test1.Test();
 
