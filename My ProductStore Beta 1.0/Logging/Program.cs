@@ -14,14 +14,17 @@ namespace Logging
         static void Main(string[] args)
         {
 
-            var logger = new Logger(LogManager.GetLogger("PSLogger"));
+            //var logger = new Logger(LogManager.GetLogger("PSLogger"));
 
 
-            Test1 test = new Test1(logger);
-            Test2 TestEror = new Test2(logger);
+            //Test1 test = new Test1(logger);
+            //Test2 TestEror = new Test2(logger);
 
-            test.Test();
-            TestEror.Test();
+            //test.Test();
+            //TestEror.Test();
+
+
+
 
 
 
