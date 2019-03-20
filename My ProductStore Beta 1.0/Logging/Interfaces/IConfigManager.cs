@@ -9,11 +9,11 @@ namespace Logging
     interface IConfigManager
     {
 
-        bool KeyBoolean(bool value);
+        bool KeyBoolean(string value);
 
         string KeyString(string value);
 
-        int Keyint(int value);
+        int Keyint(string value);
 
     }
 }

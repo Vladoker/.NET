@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using log4net;
 using log4net.Config;
 using System.Configuration;
+using Logging.Managers;
 
 namespace Logging
 {
@@ -23,6 +24,16 @@ namespace Logging
             //test.Test();
             //TestEror.Test();
 
+
+            ////////////////////////////////////////////////////////////////////////////
+
+            ConfigManager manager = new ConfigManager();
+   
+            Console.WriteLine(manager.KeyBoolean("KeyBoolean") + "\n");
+            Console.WriteLine(manager.Keyint("KeyInteger") + "\n");
+            Console.WriteLine(manager.KeyString("keyString") + "\nall Keys from App\n");
+
+            manager.PrintAllKey();
 
 
 

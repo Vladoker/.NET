@@ -1,0 +1,9 @@
+1. Add/integrate the log4net system to a new solution/project
+2. Separate logging of INFOs and ERRORs in separated files
+3. Develop the ConfigManager class(based on the IConfigManager interface), that incapsulates ConfigurationManager.AppSettings functionality
+Example for point 3:
+ I want to call "ConfigManager.GetKeyName" instead of call of ConfigurationManager.AppSettings["KeyName"]
+
+
+ 
+ 

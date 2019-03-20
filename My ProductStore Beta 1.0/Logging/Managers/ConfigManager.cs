@@ -1,50 +1,75 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Configuration;
+using System.Collections.Specialized;
 
 
 namespace Logging.Managers
 {
     public class ConfigManager : IConfigManager
     {
-        public bool KeyBoolean(bool value)
+        public bool KeyBoolean(string value)
         {
             try
             {
-                var appSettings = ConfigurationManager.AppSettings;
-                bool result = appSettings[value].ToString() ?? "Not Found";
-                return value;
-               
+                string result;
+
+                // Read a particular key from the config file            
+                result = ConfigurationManager.AppSettings.Get(value);
+
+                if (result != null && result.Equals("true")) return true;
+                else if(result != null && result.Equals("false"))return false;
+
             }
-            catch (ConfigurationErrorsException)
+            catch (Exception ex)
             {
-                Console.WriteLine("Error reading app settings");
+                Console.WriteLine("Error: "+ ex);
+                Console.ReadKey();
             }
-            return ConfigurationManager.AppSettings[value] != "true";
+            return false;
         }
 
-        public int Keyint(int value)
+        public int Keyint(string value)
         {
             try
             {
                 int result;
-                var appSettings = ConfigurationManager.AppSettings;
-                return int.TryParse(, out result);
+                var appSettings = ConfigurationManager.AppSettings.Get(value);
+                if (!int.TryParse(appSettings, out result))
+                {
+                    //обработка, если не число 
+                    result = 0;
+                }
+                return result;
 
             }
-            catch (ConfigurationErrorsException)
+            catch (Exception ex)
             {
-                Console.WriteLine("Error reading app settings");
+                Console.WriteLine("Error :" + ex);
+                Console.ReadKey();
             }
-            
+            return 0;
         }
 
         public string KeyString(string value)
         {
-            return ConfigurationManager.AppSettings[value] ?? "Not Found";
+            string result = ConfigurationManager.AppSettings.Get(value);
+            return result != null ? result : "key not found";
         }
+
+        public void PrintAllKey()
+        {
+            // Read all the keys from the config file
+            NameValueCollection sAll;
+            sAll = ConfigurationManager.AppSettings;
+
+            foreach (string s in sAll.AllKeys)
+                Console.WriteLine("Key: " + s + " Value: " + sAll.Get(s));
+            Console.ReadKey();
+        }
+
     }
 }
