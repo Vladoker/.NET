@@ -11,65 +11,50 @@ namespace Logging.Managers
 {
     public class ConfigManager : IConfigManager
     {
+        public List<string> GetStringList(string value, char separator)
+        {
+            var result = new List<string>();
+
+           string countriesString = ConfigurationManager.AppSettings.Get(value);
+
+            var countries = countriesString.Split(separator);
+
+            foreach (var country in countries)
+            {
+                result.Add(country.Trim()); //Trim() удаляет лишнии пробелы
+            }
+
+            return result;
+        }
+
         public bool KeyBoolean(string value)
         {
-            try
-            {
-                string result;
+            // Solution 1: 
+            bool result = false;
 
-                // Read a particular key from the config file            
-                result = ConfigurationManager.AppSettings.Get(value);
+            bool.TryParse(ConfigurationManager.AppSettings.Get(value), out result);
 
-                if (result != null && result.Equals("true")) return true;
-                else if(result != null && result.Equals("false"))return false;
+            return result;
 
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error: "+ ex);
-                Console.ReadKey();
-            }
-            return false;
+            // Solution 2: 
+            //return ConfigurationManager.AppSettings.Get(value) == "true";
         }
 
         public int Keyint(string value)
         {
-            try
-            {
-                int result;
-                var appSettings = ConfigurationManager.AppSettings.Get(value);
-                if (!int.TryParse(appSettings, out result))
-                {
-                    //обработка, если не число 
-                    result = 0;
-                }
-                return result;
+            int result = 0;
+            var keyValue = ConfigurationManager.AppSettings.Get(value);
 
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error :" + ex);
-                Console.ReadKey();
-            }
-            return 0;
+            int.TryParse(keyValue, out result);
+            return result;
+
         }
 
         public string KeyString(string value)
         {
-            string result = ConfigurationManager.AppSettings.Get(value);
-            return result != null ? result : "key not found";
+            return ConfigurationManager.AppSettings.Get(value);
         }
 
-        public void PrintAllKey()
-        {
-            // Read all the keys from the config file
-            NameValueCollection sAll;
-            sAll = ConfigurationManager.AppSettings;
-
-            foreach (string s in sAll.AllKeys)
-                Console.WriteLine("Key: " + s + " Value: " + sAll.Get(s));
-            Console.ReadKey();
-        }
-
+       
     }
 }

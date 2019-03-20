@@ -28,14 +28,16 @@ namespace Logging
             ////////////////////////////////////////////////////////////////////////////
 
             ConfigManager manager = new ConfigManager();
-   
-            Console.WriteLine(manager.KeyBoolean("KeyBoolean") + "\n");
-            Console.WriteLine(manager.Keyint("KeyInteger") + "\n");
-            Console.WriteLine(manager.KeyString("keyString") + "\nall Keys from App\n");
 
-            manager.PrintAllKey();
+            Console.WriteLine($"The \"KeyBoolean\" key has the {manager.KeyBoolean("KeyBoolean")} value");
 
+            Console.WriteLine(manager.Keyint("KeyInteger"));
 
+            Console.WriteLine(manager.KeyString("keyString"));
+
+            //var list = manager.GetStringList("Countries", ',');
+
+            //foreach (var item in list) Console.WriteLine(item);
 
 
 
